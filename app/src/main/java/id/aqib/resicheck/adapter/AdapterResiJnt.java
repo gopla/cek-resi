@@ -12,13 +12,13 @@ import java.util.List;
 
 import id.aqib.resicheck.R;
 
-public class AdapterResi extends AbstractItem<AdapterResi,AdapterResi.ViewHolder> {
+public class AdapterResiJnt extends AbstractItem<AdapterResiJnt, AdapterResiJnt.ViewHolder> {
 
     String date;
     String desc;
     String status;
 
-    public AdapterResi(String date, String desc, String status) {
+    public AdapterResiJnt(String date, String desc, String status) {
         this.date = date;
         this.desc = desc;
         this.status = status;
@@ -61,31 +61,31 @@ public class AdapterResi extends AbstractItem<AdapterResi,AdapterResi.ViewHolder
 
     @Override
     public int getLayoutRes() {
-        return R.layout.item_resi;
+        return R.layout.item_resi_jnt;
     }
 
-    public class ViewHolder extends FastAdapter.ViewHolder<AdapterResi> {
-        TextView tanggal,deskripsi,keadaan;
+    public class ViewHolder extends FastAdapter.ViewHolder<AdapterResiJnt> {
+        TextView tanggalJnt,deskripsiJnt,keadaanJnt;
         public ViewHolder(View itemView) {
             super(itemView);
-            tanggal = itemView.findViewById(R.id.tanggal);
-            deskripsi = itemView.findViewById(R.id.deskripsi);
-            keadaan = itemView.findViewById(R.id.keadaan);
+            tanggalJnt = itemView.findViewById(R.id.tanggalJnt);
+            deskripsiJnt = itemView.findViewById(R.id.deskripsiJnt);
+            keadaanJnt = itemView.findViewById(R.id.keadaanJnt);
 
         }
 
         @Override
-        public void bindView(AdapterResi item, List<Object> payloads) {
-            tanggal.setText(item.date);
-            deskripsi.setText(item.desc);
-            keadaan.setText(item.status);
+        public void bindView(AdapterResiJnt item, List<Object> payloads) {
+            tanggalJnt.setText(item.date);
+            deskripsiJnt.setText(item.desc);
+            keadaanJnt.setText(item.status);
         }
 
         @Override
-        public void unbindView(AdapterResi item) {
-            tanggal.setText(null);
-            deskripsi.setText(null);
-            keadaan.setText(null);
+        public void unbindView(AdapterResiJnt item) {
+            tanggalJnt.setText(null);
+            deskripsiJnt.setText(null);
+            keadaanJnt.setText(null);
         }
     }
 }
