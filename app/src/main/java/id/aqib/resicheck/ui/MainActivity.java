@@ -54,14 +54,12 @@ public class MainActivity extends AppCompatActivity {
     void fillSpinner(){
         spinnerFill.add("JNE");
         spinnerFill.add("J&T");
-        spinnerFill.add("POS Indonesia");
-        spinnerFill.add("SiCepat");
-        spinnerFill.add("Ninja Express");
-        spinnerFill.add("TiKi");
+//        spinnerFill.add("POS Indonesia");
+//        spinnerFill.add("SiCepat");
+//        spinnerFill.add("Ninja Express");
+//        spinnerFill.add("TiKi");
         spinnerFill.add("Antareja");
         spinnerFill.add("Wahana");
-        spinnerFill.add("Lion");
-        spinnerFill.add("Lazada Express");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, spinnerFill);
@@ -111,28 +109,54 @@ public class MainActivity extends AppCompatActivity {
     public void handleRequest(View view) {
         awb = et_awb.getText().toString();
 
-        ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
-        Call<TrackResponse> call = service.getPacket(awb,key,selectedCourirer());
-        call.enqueue(new Callback<TrackResponse>() {
-            @Override
-            public void onResponse(Call<TrackResponse> call, Response<TrackResponse> response) {
-                if (response.isSuccessful()){
-                    status_paket.setText("Status \t: " + response.body().getData().getStatus());
-                    nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getAddr() +"\n"+ response.body().getData().getReceived().getCity());
-                    nama_pengirim.setText("Pengirim \t: " + response.body().getData().getShipped().getName() +"\n"+ response.body().getData().getShipped().getAddr() +"\n"+ response.body().getData().getShipped().getCity());
-                    tanggal_kirim.setText("Tanggal Kirim \t: " + response.body().getData().getShipped().getDate());
-                    service_paket.setText("Jenis Service \t: " + response.body().getData().getService());
-                }else{
-                    ApiError error = ErrorUtils.parseError(response);
-                    setResponse(error.getMessage());
+        if (selectedCourirer().equals("jnt")){
+            ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
+            Call<id.aqib.resicheck.models.jnt.TrackResponse> call = service.getPacketJnt(awb,key,selectedCourirer());
+            call.enqueue(new Callback<id.aqib.resicheck.models.jnt.TrackResponse>() {
+                @Override
+                public void onResponse(Call<id.aqib.resicheck.models.jnt.TrackResponse> call, Response<id.aqib.resicheck.models.jnt.TrackResponse> response) {
+                    if (response.isSuccessful()){
+                        status_paket.setText("Status \t: " + response.body().getData().getReceived().getStatus());
+                        nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getDesc() +"\n"+ response.body().getData().getReceived());
+                        nama_pengirim.setText("Pengirim \t: -");
+                        tanggal_kirim.setText("Tanggal Kirim \t: " + response.body().getData().getShipped());
+                        service_paket.setText("Jenis Service \t: " + response.body().getData().getCourier());
+                    }else{
+                        ApiError error = ErrorUtils.parseError(response);
+                        setResponse(error.getMessage());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<TrackResponse> call, Throwable t) {
+                @Override
+                public void onFailure(Call<id.aqib.resicheck.models.jnt.TrackResponse> call, Throwable t) {
+                    setResponse(t.toString());
+                }
+            });
 
-            }
-        });
+        }else{
+            ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
+            Call<TrackResponse> call = service.getPacket(awb,key,selectedCourirer());
+            call.enqueue(new Callback<TrackResponse>() {
+                @Override
+                public void onResponse(Call<TrackResponse> call, Response<TrackResponse> response) {
+                    if (response.isSuccessful()){
+                        status_paket.setText("Status \t: " + response.body().getData().getStatus());
+                        nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getAddr() +"\n"+ response.body().getData().getReceived().getCity());
+                        nama_pengirim.setText("Pengirim \t: " + response.body().getData().getShipped().getName() +"\n"+ response.body().getData().getShipped().getAddr() +"\n"+ response.body().getData().getShipped().getCity());
+                        tanggal_kirim.setText("Tanggal Kirim \t: " + response.body().getData().getShipped().getDate());
+                        service_paket.setText("Jenis Service \t: " + response.body().getData().getService());
+                    }else{
+                        ApiError error = ErrorUtils.parseError(response);
+                        setResponse(error.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TrackResponse> call, Throwable t) {
+                    setResponse(t.toString());
+                }
+            });
+        }
     }
 
     void setResponse(String m){
