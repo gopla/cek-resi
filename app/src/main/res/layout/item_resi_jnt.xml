@@ -1,40 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    android:padding="9dp"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:layout_marginTop="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/deskripsiJnt"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deskripsi"
-        android:textSize="14dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/keadaanJnt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Keadaan"
-        android:textSize="14dp"
+        android:padding="5dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@id/deskripsiJnt"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/backButton">
 
-    <TextView
-        android:id="@+id/tanggalJnt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tanggal"
-        android:layout_marginTop="5dp"
-        android:textSize="14dp"
-        app:layout_constraintTop_toBottomOf="@id/keadaanJnt"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/deskripsiJnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deskripsi"
+            android:layout_below="@id/keadaanJnt"
+            android:textSize="14dp"
+            android:textColor="#969696"
+            />
+
+        <TextView
+            android:id="@+id/keadaanJnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keadaan"
+            android:layout_below="@id/tanggalJnt"
+            android:textSize="14dp"
+            android:textColor="#969696"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/tanggalJnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14dp"
+            />
+
+    </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

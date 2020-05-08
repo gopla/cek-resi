@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gambar"
     tools:context=".ui.MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -15,41 +16,23 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2">
+        app:layout_constraintTop_toBottomOf="@+id/backButton">
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp">
-
-            <TextView
-                android:id="@+id/namaPenerima"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/descPenerima"
-                android:layout_marginTop="5dp"
-                android:text="Dikirm Ke"
-                android:textStyle="normal" />
-
-            <TextView
-                android:id="@+id/namaPengirim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/namaPenerima"
-                android:layout_marginTop="5dp"
-                android:text="Dikirim Oleh"
-                android:textStyle="normal" />
-
             <TextView
                 android:id="@+id/tanggalKirim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/namaPengirim"
                 android:layout_marginTop="5dp"
                 android:text="Tanggal Kirim"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="normal" />
 
             <TextView
@@ -58,27 +41,53 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Status"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/tanggalKirim"
                 android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/servicePaket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tanggalKirim"
+                android:layout_below="@id/descPenerima"
                 android:layout_marginTop="5dp"
                 android:text="Service"
+                android:textColor="#de615f"
                 android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/namaPengirim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/servicePaket"
+                android:layout_marginTop="5dp"
+                android:text="Dikirim Oleh"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/namaPenerima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/namaPengirim"
+                android:layout_marginTop="5dp"
+                android:text="Dikirm Ke"
+                android:textStyle="normal" />
+
+
 
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cek Resi"
+        android:textStyle="bold"
+        android:textColor="#fff"
         android:textSize="30dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -89,11 +98,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="80dp"
+        android:hint="Masukkan Nomor Resi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@color/colorPrimary"
@@ -116,20 +125,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sp_kurir" />
 
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:onClick="handleBack"
+        android:text="Kembali"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/trackingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Tracking"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView2" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_resi"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="367dp"
+        android:layout_height="390dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintTop_toBottomOf="@+id/trackingText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/sp_kurir"

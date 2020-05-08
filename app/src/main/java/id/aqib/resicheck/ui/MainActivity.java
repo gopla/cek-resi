@@ -1,12 +1,14 @@
 package id.aqib.resicheck.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
     View rView;
     Spinner sp_kurir;
     EditText et_awb;
-    TextView nama_penerima, status_paket, tanggal_kirim, service_paket, nama_pengirim;
+    TextView nama_penerima, status_paket, tanggal_kirim, service_paket, nama_pengirim,trackingText;
     RecyclerView rv_tarck;
+    CardView cv1;
+    Button backButton,findButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +58,19 @@ public class MainActivity extends AppCompatActivity {
         sp_kurir = findViewById(R.id.sp_kurir);
         rView = findViewById(android.R.id.content).getRootView();
         et_awb = findViewById(R.id.noResi);
+        backButton = findViewById(R.id.backButton);
         nama_penerima = findViewById(R.id.namaPenerima);
         status_paket = findViewById(R.id.descPenerima);
         tanggal_kirim = findViewById(R.id.tanggalKirim);
         service_paket = findViewById(R.id.servicePaket);
         nama_pengirim = findViewById(R.id.namaPengirim);
+        trackingText = findViewById(R.id.trackingText);
+        findButton = findViewById(R.id.button2);
         rv_tarck = findViewById(R.id.rv_resi);
-
+        cv1 = findViewById(R.id.cardView2);
+        cv1.setVisibility(View.INVISIBLE);
+        trackingText.setVisibility(View.INVISIBLE);
+        backButton.setVisibility(View.INVISIBLE);
         fillSpinner();
     }
 
@@ -119,6 +129,13 @@ public class MainActivity extends AppCompatActivity {
         awb = et_awb.getText().toString();
         itemAdapter.clear();
         tracking.clear();
+        cv1.setVisibility(View.VISIBLE);
+        trackingText.setVisibility(View.VISIBLE);
+        sp_kurir.setVisibility(View.INVISIBLE);
+        et_awb.setVisibility(View.INVISIBLE);
+        findButton.setVisibility(View.INVISIBLE);
+        backButton.setVisibility(View.VISIBLE);
+        rv_tarck.setVisibility(View.VISIBLE);
         if (selectedCourirer().equals("jnt")){
             ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
             Call<id.aqib.resicheck.models.jnt.TrackResponse> call = service.getPacketJnt(awb,key,selectedCourirer());
@@ -186,6 +203,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void handleBack(View view){
+        sp_kurir.setVisibility(View.VISIBLE);
+        et_awb.setVisibility(View.VISIBLE);
+        findButton.setVisibility(View.VISIBLE);
+        cv1.setVisibility(View.INVISIBLE);
+        backButton.setVisibility(View.INVISIBLE);
+        rv_tarck.setVisibility(View.INVISIBLE);
+        trackingText.setVisibility(View.INVISIBLE);
     }
 
     void setResponse(String m){
