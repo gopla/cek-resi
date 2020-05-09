@@ -26,8 +26,6 @@ import id.aqib.resicheck.adapter.AdapterResiAll;
 import id.aqib.resicheck.adapter.AdapterResiJnt;
 import id.aqib.resicheck.helper.ApiInterface;
 import id.aqib.resicheck.helper.ServiceGenerator;
-import id.aqib.resicheck.models.ApiError;
-import id.aqib.resicheck.models.ErrorUtils;
 import id.aqib.resicheck.models.TrackResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<id.aqib.resicheck.models.jnt.TrackResponse>() {
                 @Override
                 public void onResponse(Call<id.aqib.resicheck.models.jnt.TrackResponse> call, Response<id.aqib.resicheck.models.jnt.TrackResponse> response) {
-                    if (response.isSuccessful()){
+                    if (response.body().getResult().equals("true")){
                         status_paket.setText("Status \t: " + response.body().getData().getReceived().getStatus());
                         nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getDesc() +"\n"+ response.body().getData().getReceived());
                         nama_pengirim.setText("Pengirim \t: -");
@@ -159,8 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         rv_tarck.setLayoutManager(layoutManager);
 
                     }else{
-                        ApiError error = ErrorUtils.parseError(response);
-                        setResponse(error.getMessage());
+                        setResponse(response.body().getMessage());
                     }
                 }
 
@@ -176,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<TrackResponse>() {
                 @Override
                 public void onResponse(Call<TrackResponse> call, Response<TrackResponse> response) {
-                    if (response.isSuccessful()){
+                    if (response.body().getResult().equals("true")){
                         status_paket.setText("Status \t: " + response.body().getData().getStatus());
                         nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getAddr() +"\n"+ response.body().getData().getReceived().getCity());
                         nama_pengirim.setText("Pengirim \t: " + response.body().getData().getShipped().getName() +"\n"+ response.body().getData().getShipped().getAddr() +"\n"+ response.body().getData().getShipped().getCity());
@@ -192,8 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
                         rv_tarck.setLayoutManager(layoutManager);
                     }else{
-                        ApiError error = ErrorUtils.parseError(response);
-                        setResponse(error.getMessage());
+                        setResponse(response.body().getMessage());
                     }
                 }
 
