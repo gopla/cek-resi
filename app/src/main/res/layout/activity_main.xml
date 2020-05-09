@@ -52,7 +52,7 @@
                 android:layout_below="@id/descPenerima"
                 android:layout_marginTop="5dp"
                 android:text="Service"
-                android:textColor="#de615f"
+                android:textColor="#0d1ad4"
                 android:textStyle="normal" />
 
             <TextView
