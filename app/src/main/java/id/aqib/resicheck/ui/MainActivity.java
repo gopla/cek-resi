@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<TrackResponse>() {
                 @Override
                 public void onResponse(Call<TrackResponse> call, Response<TrackResponse> response) {
-                    if (response.body().getResult().equals("true")){
+                    if (response.body().getData() != null){
                         status_paket.setText("Status \t: " + response.body().getData().getStatus());
                         nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getAddr() +"\n"+ response.body().getData().getReceived().getCity());
                         nama_pengirim.setText("Pengirim \t: " + response.body().getData().getShipped().getName() +"\n"+ response.body().getData().getShipped().getAddr() +"\n"+ response.body().getData().getShipped().getCity());
@@ -209,6 +209,11 @@ public class MainActivity extends AppCompatActivity {
         backButton.setVisibility(View.INVISIBLE);
         rv_tarck.setVisibility(View.INVISIBLE);
         trackingText.setVisibility(View.INVISIBLE);
+        status_paket.setText("Status \t: ");
+        nama_penerima.setText("Penerima \t: ");
+        nama_pengirim.setText("Pengirim \t: " );
+        tanggal_kirim.setText("Tanggal Kirim \t: ");
+        service_paket.setText("Jenis Service \t: ");
     }
 
     void setResponse(String m){
