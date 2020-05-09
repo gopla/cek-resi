@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<id.aqib.resicheck.models.jnt.TrackResponse>() {
                 @Override
                 public void onResponse(Call<id.aqib.resicheck.models.jnt.TrackResponse> call, Response<id.aqib.resicheck.models.jnt.TrackResponse> response) {
-                    if (response.body().getResult().equals("true")){
+                    if (response.body().getData() != null){
                         status_paket.setText("Status \t: " + response.body().getData().getReceived().getStatus());
                         nama_penerima.setText("Penerima \t: " + response.body().getData().getReceived().getName() +"\n"+ response.body().getData().getReceived().getDesc() +"\n"+ response.body().getData().getReceived());
                         nama_pengirim.setText("Pengirim \t: -");
